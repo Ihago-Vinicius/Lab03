@@ -45,9 +45,9 @@ public class Filme {
     }
 
     /**
-     * Override de equals para se filmes são iguais.
-     * @param obj   the reference object with which to compare.
-     * @return True se fore, iguais, false se forem diferentes
+     * Override de equals para saber se dois filmes são iguais.
+     * @param obj objeto passado como referência na comparação.
+     * @return True se forem iguais, false se forem diferentes.
      */
     @Override
     public boolean equals(Object obj) {
