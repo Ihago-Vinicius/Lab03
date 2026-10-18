@@ -59,6 +59,23 @@ public class Main {
                 System.out.println(app.atribuirHot(filme, poscicao));
                 System.out.println();
             }
+            else if (opcao.equals("R")) {
+                System.out.print("Posição> ");
+                int posicao = sc.nextInt();
+                sc.nextLine();
+                System.out.println(app.removerHot(posicao));
+                System.out.println();
+            }
+            else if (opcao.equals("E")) {
+                for (int i = 0; i < app.exibirHotList().length; i++) {
+                    System.out.println(app.exibirHotList()[i]);
+                }
+                System.out.println();
+            }
+            else {
+                System.out.println("INVÁLIDA");
+                System.out.println();
+            }
         }
     }
 }
