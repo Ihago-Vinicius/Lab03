@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe molde do objeto FilmNow, o programa responsável por realizar as operações internas.
+ */
 public class FilmNow {
     /** Array de filmes.*/
     private Filme[] filmes;

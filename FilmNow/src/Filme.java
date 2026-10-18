@@ -1,5 +1,8 @@
 import java.util.Objects;
 
+/**
+ * Classe molde dos objetos Filme.
+ */
 public class Filme {
     /** Nome do filme.*/
     private String nome;
