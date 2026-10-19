@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Classe molde do objeto FilmNow, o programa responsável por realizar as operações internas.
  */
@@ -47,55 +44,55 @@ public class FilmNow {
     }
 
     /**
-     * Retorna um Array de Strings contendo todos os filmes adicionados.
-     * @return Array de Strings que contém todos os filmes adicionados
+     * Retorna uma _String_ contendo todos os filmes adicionados.
+     * @return _String_ que contém todos os filmes adicionados.
      */
-    public String[] mostrarFilmes() {
-        List<String> listaDeFilmesAdicionados = new ArrayList<>();
+    public String mostrarFilmes() {
+        String saida = "";
         for (int i = 0; i < filmes.length; i++) {
             if (filmes[i] != null) {
-                listaDeFilmesAdicionados.add(i + " - " + filmes[i].getNome());
+                saida += i + " - " + filmes[i].getNome() + "\n";
             }
         }
-        return listaDeFilmesAdicionados.toArray(new String[0]);
+        if (saida.isEmpty()) {
+            return "LISTA DE FILMES VAZIA!";
+        }
+        return saida;
     }
 
     /**
      * Retorna a representação textual de um filme.
      * @param posicao posição do filme.
-     * @return representação textual do filme. Emoji adicionado se filme estiver em hotlist.
+     * @return representação textual do filme. _Emoji_ adicionado aos detalhes se filme estiver em hotlist.
      */
     public String detalharFilme(int posicao) {
+        if (filmes[posicao] == null) {
+            return "POSIÇÃO INVÁLIDA";
+        }
         for (int i = 0; i < 11; i++) {
-            if (hotList[i] != null) {
-                if (filmes[posicao].equals(hotList[i])) {
-                    return "\uD83D\uDD25 " + filmes[posicao].toString();
-                }
+            if (hotList[i] != null & filmes[posicao].equals(hotList[i])) {
+                return "\uD83D\uDD25 " + filmes[posicao].toString();
             }
         }
-        if (filmes[posicao] != null) {
-            return filmes[posicao].toString();
-        }
-        else{
-            return "FILME NÃO EXISTE!";
-        }
+        return filmes[posicao].toString();
     }
 
     /**
-     * Retorna um Array de Strings contendo todos os filmes que já foram adicionados a hotlist.
-     * @return Array de Strings dos filmes adicionados a hotlist.
+     * Retorna uma _String_ contendo todos os filmes que já foram adicionados a hotlist.
+     * @return _String_ representado os filmes adicionados a hotlist caso haja pelo menos 1 filme, ou
+     * "HOTLIST VAZIA!" caso não existam filmes na hotlist.
      */
-    public String[] exibirHotList() {
-    List<String> filmesAdicionadosAHotList = new ArrayList<>();
-    for (int i = 0; i < hotList.length; i ++) {
-        if (hotList[i] != null) {
-                filmesAdicionadosAHotList.add(i + " - " + hotList[i].getNome());
+    public String exibirHotList() {
+        String saida = "";
+        for (int i = 0; i < hotList.length; i++) {
+            if (hotList[i] != null) {
+                saida += i + " - " + hotList[i].getNome() + ", " + hotList[i].getAno() + "\n";
+            }
         }
-    }
-    if (filmesAdicionadosAHotList.isEmpty()) {
-        filmesAdicionadosAHotList.add("HOTLIST VAZIA!");
-    }
-    return filmesAdicionadosAHotList.toArray(new String[0]);
+        if (saida.isEmpty()) {
+            return "HOTLIST VAZIA!";
+        }
+        return saida;
     }
 
     /**
@@ -104,9 +101,13 @@ public class FilmNow {
      * @param posicaoFilme Posição do filme que se quer adicionar a HotList.
      * @param posicaoHotlist Posição da HotList que se deve adicionar o filme.
      * @return "FILME JÁ ESTÁ NA HOTLIST!" caso filme já tenha sido adicionado anteriormente,
-     * ou "ADICIONADO À HOTLIST NA POSIÇÃO X!" caso posição seja válida, com X sendo a posição.
+     * ou "ADICIONADO À HOTLIST NA POSIÇÃO X!" caso posição seja válida, com X sendo a posição,
+     * ou "POSIÇÃO INVÁLIDA" se não existir filme naquela posição.
      */
     public String atribuirHot(int posicaoFilme, int posicaoHotlist) {
+        if (filmes[posicaoFilme] == null){
+            return "POSIÇÃO INVÁLIDA";
+        }
         for (int i = 0; i < hotList.length; i++) {
             if (hotList[i] != null && hotList[i].equals(hotList[posicaoFilme])) {
                 return "FILME JÁ ESTÁ NA HOTLIST!";
@@ -119,16 +120,19 @@ public class FilmNow {
     /**
      * Remove um filme da HotList.
      * @param posicao Posição do filme na HotList.
-     * @return "POSIÇÃO INVÁLIDA" se a posição estiver vazia ou não corresponder a uma posição existente na hotlist,
+     * @return "FILME NÃO EXISTEA" se a posição estiver vazia, ou "FILME NÃO ESTAVA NA HOTLIST",
      * ou "FILME REMOVIDO DA HOTLIST" caso a posição seja válida.
      */
     public String removerHot(int posicao) {
-        if (posicao < 1 || posicao > 10 || hotList[posicao] == null) {
-            return "POSIÇÃO INVÁLIDA";
+        if (filmes[posicao] == null) {
+            return "FILME NÃO EXISTE!";
         }
-        else {
-            hotList[posicao] = null;
-            return "FILME REMOVIDO DA HOTLIST";
+        for (int i = 0; i < hotList.length; i++) {
+            if (hotList[i] != null && hotList[i].equals(filmes[posicao])) {
+                hotList[i] = null;
+                return "FILME REMOVIDO DA HOTLIST";
+            }
         }
+        return "FILME NÃO ESTAVA NA HOTLIST";
     }
 }
